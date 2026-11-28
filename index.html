@@ -47,7 +47,7 @@
     <input type="text" id="uid" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" required>
     <label for="pw">비밀번호</label>
     <div class="pw"><input type="password" id="pw" name="password" autocomplete="current-password" required><button type="button" id="eye" aria-label="비밀번호 보기">보기</button></div>
-    <div class="row"><input type="checkbox" id="remember" checked><label for="remember" style="margin:0;color:var(--text)">이 기기 기억하기 (30일)</label></div>
+    <div class="row"><input type="checkbox" id="remember" checked><label for="remember" style="margin:0;color:var(--text)">이 기기 기억하기 (90일)</label></div>
     <button class="primary" id="go" type="submit">들어가기</button>
   </form>
   <button class="find" id="find" type="button">비밀번호 찾기 (관리자에게 문자)</button>
@@ -57,7 +57,7 @@
 <div class="shopbar">깐부킹당구장 수원 매탄점 · 1인 6시간 7000원 · TEL <a href="tel:0312126779">031-212-6779</a> · HP <a href="tel:01025008553">010-2500-8553</a></div>
 <script>
 (() => {
-  const ITER = 600000, PEPPER = 'kkanbu-billiards|', DAYS = 30;
+  const ITER = 600000, PEPPER = 'kkanbu-billiards|', DAYS = 90;
   const $ = (id) => document.getElementById(id), enc = new TextEncoder(), dec = new TextDecoder();
   const un = (s) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
   const msg = (t, ok) => { $('msg').textContent = t; $('msg').className = 'msg' + (ok ? ' ok' : ''); };

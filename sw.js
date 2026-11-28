@@ -1,5 +1,5 @@
 // 오프라인 저장 (암호화된 파일 그대로 저장. 암호는 기기 안에서만 풂). 새 버전이 올라오면 이름이 바뀌어 다시 받음
-const CACHE = 'billiards-sec-944ee045';
+const CACHE = 'billiards-sec-3c8faa52';
 const FILES = ["./", "index.html", "app.enc", "keys.json", "three.min.js", "GLTFLoader.js", "Michelle.glb", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png"];
 self.addEventListener('install', (e) => { e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', (e) => { e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim())); });

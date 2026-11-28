@@ -61,7 +61,7 @@
   const $ = (id) => document.getElementById(id), enc = new TextEncoder(), dec = new TextDecoder();
   const un = (s) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
   const msg = (t, ok) => { $('msg').textContent = t; $('msg').className = 'msg' + (ok ? ' ok' : ''); };
-  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then((r) => r.update()).catch(() => {});
   if (!window.crypto || !crypto.subtle) { document.body.innerHTML = '<p style="padding:20px">이 화면은 https 주소에서만 열립니다.</p>'; return; }
 
   // 기억한 열쇠: IndexedDB에 '꺼낼 수 없는' 열쇠로 저장 (기간이 지나면 지움)
@@ -87,7 +87,7 @@
     const plain = async (x) => dec.decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: un(x.iv) }, key, un(x.ct)));
     const html = await plain(b.app), stance = await plain(b.stance);
     window.__STANCE_URL = URL.createObjectURL(new Blob([stance], { type: 'text/javascript' }));
-    window.__userId = (uid || '').toLowerCase();
+    window.__userId = (uid || '').toLowerCase(); window.__built = b.built || '';
     window.__logout = async () => { await dropKey(); location.reload(); };
     document.open(); document.write(html); document.close();
   }
